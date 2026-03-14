@@ -1,0 +1,79 @@
+---
+interface Props {
+  name: string;
+  description: string;
+  tech: string[];
+  url?: string;
+}
+
+const { name, description, tech, url } = Astro.props;
+---
+
+<div class="project-card">
+  <div class="project-card__header">
+    {url ? (
+      <a href={url} target="_blank" rel="noopener noreferrer" class="project-card__name">{name}</a>
+    ) : (
+      <span class="project-card__name">{name}</span>
+    )}
+  </div>
+  <p class="project-card__desc">{description}</p>
+  <div class="project-card__tech">
+    {tech.map((t) => (
+      <span class="project-card__tag">{t}</span>
+    ))}
+  </div>
+</div>
+
+<style>
+  .project-card {
+    border: 1px solid var(--border);
+    padding: var(--space-lg);
+    background: var(--surface);
+    transition: border-color 0.2s ease;
+  }
+
+  .project-card:hover {
+    border-color: var(--accent);
+  }
+
+  .project-card__header {
+    margin-bottom: var(--space-sm);
+  }
+
+  .project-card__name {
+    font-family: var(--font-heading);
+    font-size: 1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text);
+  }
+
+  a.project-card__name:hover {
+    color: var(--accent);
+  }
+
+  .project-card__desc {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    margin-bottom: var(--space-md);
+    line-height: 1.6;
+  }
+
+  .project-card__tech {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+  }
+
+  .project-card__tag {
+    font-family: var(--font-heading);
+    font-size: 0.6875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--accent);
+    border: 1px solid var(--border);
+    padding: 0.15em 0.5em;
+  }
+</style>

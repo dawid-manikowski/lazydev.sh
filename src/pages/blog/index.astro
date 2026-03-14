@@ -1,0 +1,53 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import BlogPostCard from '../../components/BlogPostCard.astro';
+import { getCollection } from 'astro:content';
+
+const allPosts = await getCollection('blog', ({ data }) => !data.draft);
+const posts = allPosts.sort(
+  (a, b) => new Date(b.data.pubDate).getTime() - new Date(a.data.pubDate).getTime()
+);
+---
+
+<PageLayout title="Blog" description="Writing about SRE, infrastructure as code, and reliability engineering.">
+  <section class="section">
+    <h1 class="page-title">Blog</h1>
+    <p class="page-desc text-muted">Writing about SRE, infrastructure as code, and the things I learn along the way.</p>
+
+    {posts.length > 0 ? (
+      <div class="posts-grid">
+        {posts.map((post) => (
+          <BlogPostCard
+            title={post.data.title}
+            description={post.data.description}
+            pubDate={post.data.pubDate.toISOString()}
+            slug={post.id}
+            tags={post.data.tags}
+          />
+        ))}
+      </div>
+    ) : (
+      <p class="empty text-muted">No posts yet. Check back soon.</p>
+    )}
+  </section>
+</PageLayout>
+
+<style>
+  .page-title {
+    margin-bottom: var(--space-sm);
+  }
+
+  .page-desc {
+    margin-bottom: var(--space-xl);
+    font-size: 0.9375rem;
+  }
+
+  .posts-grid {
+    display: grid;
+    gap: var(--space-md);
+  }
+
+  .empty {
+    font-style: italic;
+  }
+</style>

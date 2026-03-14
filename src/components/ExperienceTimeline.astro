@@ -1,0 +1,126 @@
+---
+const jobs = [
+  {
+    company: 'CaptivateIQ',
+    role: 'Senior SRE',
+    period: '2021 — Present',
+    description: 'First SRE hire. Built the reliability practice from scratch — observability, incident response, infrastructure as code, cost optimization.',
+  },
+  {
+    company: 'Makeitright',
+    role: 'Lead DevOps Engineer',
+    period: '2018 — 2021',
+    description: 'Led the DevOps team. Cloud infrastructure, CI/CD pipelines, and platform engineering across multiple client projects.',
+  },
+  {
+    company: 'Samsung',
+    role: 'Junior DevOps Engineer',
+    period: '2017 — 2018',
+    description: 'Build systems and deployment pipelines for mobile software projects.',
+  },
+  {
+    company: 'Reef Technologies',
+    role: 'Python Developer',
+    period: '2017',
+    description: 'Backend development in Python. Web applications and APIs.',
+  },
+  {
+    company: 'Intel Technology Poland',
+    role: 'Software Engineer',
+    period: '2014 — 2017',
+    description: 'Software validation and development. Automation frameworks and testing infrastructure.',
+  },
+];
+---
+
+<div class="timeline">
+  {jobs.map((job) => (
+    <div class="timeline__item">
+      <div class="timeline__marker"></div>
+      <div class="timeline__content">
+        <div class="timeline__header">
+          <h3 class="timeline__company">{job.company}</h3>
+          <span class="timeline__period">{job.period}</span>
+        </div>
+        <p class="timeline__role">{job.role}</p>
+        <p class="timeline__desc">{job.description}</p>
+      </div>
+    </div>
+  ))}
+</div>
+
+<style>
+  .timeline {
+    position: relative;
+    padding-left: var(--space-xl);
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 5px;
+    top: 8px;
+    bottom: 8px;
+    width: 1px;
+    background: var(--border);
+  }
+
+  .timeline__item {
+    position: relative;
+    padding-bottom: var(--space-xl);
+  }
+
+  .timeline__item:last-child {
+    padding-bottom: 0;
+  }
+
+  .timeline__marker {
+    position: absolute;
+    left: calc(-1 * var(--space-xl) + 1px);
+    top: 8px;
+    width: 9px;
+    height: 9px;
+    background: var(--accent);
+  }
+
+  .timeline__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: var(--space-md);
+    margin-bottom: var(--space-xs);
+  }
+
+  .timeline__company {
+    font-size: 1rem;
+    text-transform: uppercase;
+  }
+
+  .timeline__period {
+    font-family: var(--font-heading);
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    white-space: nowrap;
+  }
+
+  .timeline__role {
+    font-size: 0.875rem;
+    color: var(--accent);
+    margin-bottom: var(--space-sm);
+  }
+
+  .timeline__desc {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+
+  @media (max-width: 768px) {
+    .timeline__header {
+      flex-direction: column;
+      gap: 0;
+    }
+  }
+</style>

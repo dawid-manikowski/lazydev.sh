@@ -1,0 +1,122 @@
+---
+import BaseLayout from './BaseLayout.astro';
+
+interface Props {
+  frontmatter: {
+    title: string;
+    description: string;
+    pubDate: string;
+    tags?: string[];
+  };
+}
+
+const { frontmatter } = Astro.props;
+const formattedDate = new Date(frontmatter.pubDate).toLocaleDateString('en-US', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+});
+---
+
+<BaseLayout title={frontmatter.title} description={frontmatter.description}>
+  <main class="container">
+    <article class="blog-post">
+      <header class="blog-post__header">
+        <h1>{frontmatter.title}</h1>
+        <div class="blog-post__meta">
+          <time datetime={frontmatter.pubDate}>{formattedDate}</time>
+          {frontmatter.tags && (
+            <div class="blog-post__tags">
+              {frontmatter.tags.map((tag: string) => (
+                <span class="tag">{tag}</span>
+              ))}
+            </div>
+          )}
+        </div>
+      </header>
+      <div class="blog-post__content">
+        <slot />
+      </div>
+    </article>
+  </main>
+</BaseLayout>
+
+<style>
+  .blog-post {
+    max-width: var(--content-width);
+    margin: 0 auto;
+    padding: var(--space-2xl) 0;
+  }
+
+  .blog-post__header {
+    margin-bottom: var(--space-xl);
+    padding-bottom: var(--space-lg);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .blog-post__header h1 {
+    margin-bottom: var(--space-md);
+  }
+
+  .blog-post__meta {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    color: var(--text-muted);
+    font-size: 0.875rem;
+  }
+
+  .blog-post__tags {
+    display: flex;
+    gap: var(--space-sm);
+  }
+
+  .tag {
+    font-family: var(--font-heading);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--accent);
+    border: 1px solid var(--border);
+    padding: 0.15em 0.5em;
+  }
+
+  .blog-post__content {
+    line-height: 1.8;
+  }
+
+  .blog-post__content :global(h2) {
+    margin-top: var(--space-xl);
+    margin-bottom: var(--space-md);
+  }
+
+  .blog-post__content :global(h3) {
+    margin-top: var(--space-lg);
+    margin-bottom: var(--space-sm);
+  }
+
+  .blog-post__content :global(p) {
+    margin-bottom: var(--space-md);
+  }
+
+  .blog-post__content :global(ul),
+  .blog-post__content :global(ol) {
+    margin-bottom: var(--space-md);
+    padding-left: var(--space-lg);
+  }
+
+  .blog-post__content :global(li) {
+    margin-bottom: var(--space-xs);
+  }
+
+  .blog-post__content :global(pre) {
+    margin-bottom: var(--space-md);
+  }
+
+  .blog-post__content :global(blockquote) {
+    border-left: 3px solid var(--accent);
+    padding-left: var(--space-md);
+    color: var(--text-muted);
+    margin-bottom: var(--space-md);
+  }
+</style>

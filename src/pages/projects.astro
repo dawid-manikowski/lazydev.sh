@@ -1,0 +1,66 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+
+const projects = [
+  {
+    name: 'homie',
+    description: 'Simple monitoring utility for keeping an eye on services and endpoints.',
+    tech: ['Go'],
+    url: 'https://github.com/dawid-manikowski/homie',
+  },
+  {
+    name: 'sparrow',
+    description: 'Lightweight Go utility project.',
+    tech: ['Go'],
+    url: 'https://github.com/dawid-manikowski/sparrow',
+  },
+  {
+    name: 'pydoro',
+    description: 'Desktop Pomodoro timer application with a clean GTK interface.',
+    tech: ['Python', 'GTK'],
+    url: 'https://github.com/dawid-manikowski/pydoro',
+  },
+  {
+    name: 'bimberman',
+    description: 'A weekend game project built for fun.',
+    tech: ['Godot', 'GDScript'],
+    url: 'https://github.com/dawid-manikowski/bimberman',
+  },
+  {
+    name: 'homelab',
+    description: 'Self-hosted infrastructure running on Proxmox. Monitoring, media, automation, and more.',
+    tech: ['Docker', 'Terraform', 'Proxmox'],
+    url: 'https://github.com/dawid-manikowski/homelab',
+  },
+];
+---
+
+<PageLayout title="Projects" description="Side projects and open source work.">
+  <section class="section">
+    <h1 class="page-title">Projects</h1>
+    <p class="page-desc text-muted">Things I've built on evenings and weekends.</p>
+    <div class="projects-grid">
+      {projects.map((project) => (
+        <ProjectCard {...project} />
+      ))}
+    </div>
+  </section>
+</PageLayout>
+
+<style>
+  .page-title {
+    margin-bottom: var(--space-sm);
+  }
+
+  .page-desc {
+    margin-bottom: var(--space-xl);
+    font-size: 0.9375rem;
+  }
+
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: var(--space-md);
+  }
+</style>
