@@ -1,0 +1,87 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  pubDate: string;
+  slug: string;
+  tags?: string[];
+}
+
+const { title, description, pubDate, slug, tags } = Astro.props;
+const formattedDate = new Date(pubDate).toLocaleDateString('en-US', {
+  year: 'numeric',
+  month: 'short',
+  day: 'numeric',
+});
+---
+
+<a href={`/blog/${slug}`} class="blog-card">
+  <div class="blog-card__meta">
+    <time datetime={pubDate}>{formattedDate}</time>
+    {tags && tags.length > 0 && (
+      <div class="blog-card__tags">
+        {tags.map((tag) => (
+          <span class="blog-card__tag">{tag}</span>
+        ))}
+      </div>
+    )}
+  </div>
+  <h3 class="blog-card__title">{title}</h3>
+  <p class="blog-card__desc">{description}</p>
+</a>
+
+<style>
+  .blog-card {
+    display: block;
+    border: 1px solid var(--border);
+    padding: var(--space-lg);
+    background: var(--surface);
+    transition: border-color 0.2s ease;
+    color: inherit;
+  }
+
+  .blog-card:hover {
+    border-color: var(--accent);
+  }
+
+  .blog-card__meta {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    margin-bottom: var(--space-sm);
+  }
+
+  .blog-card__meta time {
+    font-family: var(--font-heading);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-muted);
+  }
+
+  .blog-card__tags {
+    display: flex;
+    gap: var(--space-sm);
+  }
+
+  .blog-card__tag {
+    font-family: var(--font-heading);
+    font-size: 0.6875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--accent);
+  }
+
+  .blog-card__title {
+    font-size: 1.125rem;
+    margin-bottom: var(--space-sm);
+    text-transform: none;
+    letter-spacing: normal;
+  }
+
+  .blog-card__desc {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+</style>

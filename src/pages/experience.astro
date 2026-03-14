@@ -1,0 +1,23 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+import ExperienceTimeline from '../components/ExperienceTimeline.astro';
+---
+
+<PageLayout title="Experience" description="Career timeline — from software engineering to SRE.">
+  <section class="section">
+    <h1 class="page-title">Experience</h1>
+    <p class="page-desc text-muted">A decade of building and operating software.</p>
+    <ExperienceTimeline />
+  </section>
+</PageLayout>
+
+<style>
+  .page-title {
+    margin-bottom: var(--space-sm);
+  }
+
+  .page-desc {
+    margin-bottom: var(--space-xl);
+    font-size: 0.9375rem;
+  }
+</style>

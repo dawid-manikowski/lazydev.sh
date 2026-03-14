@@ -1,0 +1,131 @@
+---
+const pathname = Astro.url.pathname;
+
+const links = [
+  { href: '/', label: 'Home' },
+  { href: '/projects', label: 'Projects' },
+  { href: '/experience', label: 'Experience' },
+  { href: '/blog', label: 'Blog' },
+];
+---
+
+<header class="header">
+  <nav class="header__nav container">
+    <a href="/" class="header__logo">lazydev.sh</a>
+    <ul class="header__links">
+      {links.map((link) => (
+        <li>
+          <a
+            href={link.href}
+            class:list={['header__link', { active: pathname === link.href || (link.href !== '/' && pathname.startsWith(link.href)) }]}
+          >
+            {link.label}
+          </a>
+        </li>
+      ))}
+    </ul>
+    <button class="header__menu" aria-label="Toggle menu" id="menu-toggle">
+      <span></span>
+      <span></span>
+    </button>
+  </nav>
+</header>
+
+<style>
+  .header {
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    background: var(--bg);
+    z-index: 100;
+  }
+
+  .header__nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 64px;
+  }
+
+  .header__logo {
+    font-family: var(--font-heading);
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .header__logo:hover {
+    color: var(--accent);
+  }
+
+  .header__links {
+    display: flex;
+    list-style: none;
+    gap: var(--space-lg);
+  }
+
+  .header__link {
+    font-family: var(--font-heading);
+    font-size: 0.8125rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-muted);
+    transition: color 0.2s ease;
+  }
+
+  .header__link:hover,
+  .header__link.active {
+    color: var(--accent);
+  }
+
+  .header__menu {
+    display: none;
+    flex-direction: column;
+    gap: 6px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: var(--space-sm);
+  }
+
+  .header__menu span {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background: var(--text);
+    transition: transform 0.2s ease;
+  }
+
+  @media (max-width: 768px) {
+    .header__links {
+      display: none;
+      position: absolute;
+      top: 64px;
+      left: 0;
+      right: 0;
+      flex-direction: column;
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+      padding: var(--space-md) var(--space-lg);
+      gap: var(--space-md);
+    }
+
+    .header__links.open {
+      display: flex;
+    }
+
+    .header__menu {
+      display: flex;
+    }
+  }
+</style>
+
+<script>
+  const toggle = document.getElementById('menu-toggle');
+  const links = document.querySelector('.header__links');
+  toggle?.addEventListener('click', () => {
+    links?.classList.toggle('open');
+  });
+</script>

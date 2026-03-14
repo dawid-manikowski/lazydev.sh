@@ -1,0 +1,96 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import About from '../components/About.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import BlogPostCard from '../components/BlogPostCard.astro';
+import { getCollection } from 'astro:content';
+
+const projects = [
+  {
+    name: 'homie',
+    description: 'Simple monitoring utility for keeping an eye on services and endpoints.',
+    tech: ['Go'],
+    url: 'https://github.com/dawid-manikowski/homie',
+  },
+  {
+    name: 'sparrow',
+    description: 'Lightweight Go utility project.',
+    tech: ['Go'],
+    url: 'https://github.com/dawid-manikowski/sparrow',
+  },
+  {
+    name: 'pydoro',
+    description: 'Desktop Pomodoro timer application with a clean GTK interface.',
+    tech: ['Python', 'GTK'],
+    url: 'https://github.com/dawid-manikowski/pydoro',
+  },
+];
+
+const allPosts = await getCollection('blog', ({ data }) => !data.draft);
+const latestPosts = allPosts
+  .sort((a, b) => new Date(b.data.pubDate).getTime() - new Date(a.data.pubDate).getTime())
+  .slice(0, 3);
+---
+
+<BaseLayout title="Home">
+  <main>
+    <Hero />
+
+    <About />
+
+    <section class="section">
+      <div class="container">
+        <h2 class="section-title">Featured Projects</h2>
+        <div class="projects-grid">
+          {projects.map((project) => (
+            <ProjectCard {...project} />
+          ))}
+        </div>
+        <a href="/projects" class="see-all">All projects &rarr;</a>
+      </div>
+    </section>
+
+    {latestPosts.length > 0 && (
+      <section class="section">
+        <div class="container">
+          <h2 class="section-title">Latest Posts</h2>
+          <div class="posts-grid">
+            {latestPosts.map((post) => (
+              <BlogPostCard
+                title={post.data.title}
+                description={post.data.description}
+                pubDate={post.data.pubDate.toISOString()}
+                slug={post.id}
+                tags={post.data.tags}
+              />
+            ))}
+          </div>
+          <a href="/blog" class="see-all">All posts &rarr;</a>
+        </div>
+      </section>
+    )}
+  </main>
+</BaseLayout>
+
+<style>
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: var(--space-md);
+  }
+
+  .posts-grid {
+    display: grid;
+    gap: var(--space-md);
+  }
+
+  .see-all {
+    display: inline-block;
+    margin-top: var(--space-lg);
+    font-family: var(--font-heading);
+    font-size: 0.8125rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+</style>

@@ -1,0 +1,73 @@
+<section class="hero section">
+  <div class="container">
+    <div class="hero__content">
+      <p class="hero__greeting">Hi, I'm</p>
+      <h1 class="hero__name">Dawid Manikowski</h1>
+      <p class="hero__tagline">Senior SRE. Building reliable systems at scale.</p>
+      <p class="hero__location text-muted">Gdansk, Poland</p>
+      <div class="hero__links">
+        <a href="https://github.com/dawid-manikowski" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <span class="hero__sep">/</span>
+        <a href="https://linkedin.com/in/dawid-manikowski" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <span class="hero__sep">/</span>
+        <a href="mailto:dawid@lazydev.sh">Email</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    padding: var(--space-2xl) 0;
+    border-bottom: none;
+  }
+
+  .hero__content {
+    max-width: 640px;
+  }
+
+  .hero__greeting {
+    font-family: var(--font-heading);
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--accent);
+    margin-bottom: var(--space-sm);
+  }
+
+  .hero__name {
+    font-size: 3.5rem;
+    margin-bottom: var(--space-md);
+  }
+
+  .hero__tagline {
+    font-size: 1.25rem;
+    color: var(--text-muted);
+    margin-bottom: var(--space-sm);
+  }
+
+  .hero__location {
+    font-size: 0.875rem;
+    margin-bottom: var(--space-lg);
+  }
+
+  .hero__links {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    font-family: var(--font-heading);
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .hero__sep {
+    color: var(--border);
+  }
+
+  @media (max-width: 768px) {
+    .hero__name {
+      font-size: 2.25rem;
+    }
+  }
+</style>
