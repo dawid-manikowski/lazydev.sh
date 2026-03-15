@@ -2,33 +2,48 @@
 const jobs = [
   {
     company: 'CaptivateIQ',
-    role: 'Senior SRE',
+    role: 'Senior SRE / Tech Lead',
     period: '2021 — Present',
-    description: 'First SRE hire. Built the reliability practice from scratch — observability, incident response, infrastructure as code, cost optimization.',
+    description: 'First SRE hire at a US-based, VC-backed startup. Led the migration from Heroku to AWS (ECS, Fargate, RDS, VPC) single-handedly in 4 months. Drove company-wide SLO adoption across all dev teams. Led the EU region deployment and played a key role in the AU region rollout. Day-to-day: PostgreSQL migrations, AWS infrastructure architecture, Terraform, Python automation, monitoring, and supporting engineering teams.',
   },
   {
     company: 'Makeitright',
     role: 'Lead DevOps Engineer',
     period: '2018 — 2021',
-    description: 'Led the DevOps team. Cloud infrastructure, CI/CD pipelines, and platform engineering across multiple client projects.',
+    description: 'Sole DevOps engineer, later leading a team of up to 4. Owned CI/CD (Jenkins), release pipelines, security, installers, and IaC (Terraform) for Powerfarm — an on-prem product deployed at banks and insurance companies. Represented the company as a technical specialist at client meetings and managed on-site deployments. Also worked on the SaaS rewrite (Powerfarm 2.0).',
   },
   {
-    company: 'Samsung',
+    company: 'Samsung R&D Poland',
     role: 'Junior DevOps Engineer',
-    period: '2017 — 2018',
-    description: 'Build systems and deployment pipelines for mobile software projects.',
+    period: '2018 — 2018',
+    description: 'Python scripting and internal tooling for other development teams. Quickly outgrew the role — led the team technically despite the junior title.',
   },
   {
     company: 'Reef Technologies',
-    role: 'Python Developer',
-    period: '2017',
-    description: 'Backend development in Python. Web applications and APIs.',
+    role: 'Junior Python Developer',
+    period: '2017 - 2018',
+    description: 'Backend Python development, mostly open-source work (Backblaze B2). Sharpened core Python skills in a demanding environment.',
   },
   {
     company: 'Intel Technology Poland',
-    role: 'Software Engineer',
-    period: '2014 — 2017',
-    description: 'Software validation and development. Automation frameworks and testing infrastructure.',
+    role: 'Intern → Software Engineer',
+    period: '2015 — 2017',
+    description: 'Started as an intern after winning 2nd place at a Gdańsk University of Technology hackathon (Smart Traffic Lights). Worked on test automation and tooling around USB drivers, Simics, and audio drivers. Transitioned to full-time after completing engineering degree.',
+  },
+  {
+    company: 'mPicoSys',
+    role: 'Engineering Intern',
+    period: '2014 — 2015',
+    description: 'Student internship at a company building e-ink display devices. Firmware flashing, Python scripting for database analysis, and hardware testing in thermal chambers.',
+  },
+];
+
+const education = [
+  {
+    institution: 'Gdańsk University of Technology',
+    degree: 'B.Eng. in Electronics & Telecommunications',
+    period: '2011 — 2015',
+    description: 'Faculty of Electronics, Telecommunications and Informatics. Department of Computer Electronic Systems.',
   },
 ];
 ---
@@ -44,6 +59,24 @@ const jobs = [
         </div>
         <p class="timeline__role">{job.role}</p>
         <p class="timeline__desc">{job.description}</p>
+      </div>
+    </div>
+  ))}
+</div>
+
+<h2 class="section-title">Education</h2>
+
+<div class="timeline">
+  {education.map((edu) => (
+    <div class="timeline__item">
+      <div class="timeline__marker"></div>
+      <div class="timeline__content">
+        <div class="timeline__header">
+          <h3 class="timeline__company">{edu.institution}</h3>
+          <span class="timeline__period">{edu.period}</span>
+        </div>
+        <p class="timeline__role">{edu.degree}</p>
+        <p class="timeline__desc">{edu.description}</p>
       </div>
     </div>
   ))}
@@ -115,6 +148,15 @@ const jobs = [
     font-size: 0.875rem;
     color: var(--text-muted);
     line-height: 1.6;
+  }
+
+  .section-title {
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--accent);
+    margin-top: var(--space-xl);
+    margin-bottom: var(--space-lg);
   }
 
   @media (max-width: 768px) {
