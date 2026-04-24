@@ -5,6 +5,7 @@ import About from '../components/About.astro';
 import ProjectCard from '../components/ProjectCard.astro';
 import BlogPostCard from '../components/BlogPostCard.astro';
 import { getCollection } from 'astro:content';
+import { personJsonLd, websiteJsonLd } from '../utils/json-ld';
 
 const projects = [
   {
@@ -33,7 +34,7 @@ const latestPosts = allPosts
   .slice(0, 3);
 ---
 
-<BaseLayout title="Home">
+<BaseLayout title="Home" jsonLd={[personJsonLd(), websiteJsonLd()]}>
   <main>
     <Hero />
 

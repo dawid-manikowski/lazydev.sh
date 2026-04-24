@@ -13,9 +13,10 @@ interface Props {
     ogImage?: string;
   };
   readingTime?: ReadingTime;
+  jsonLd?: Record<string, unknown> | Record<string, unknown>[];
 }
 
-const { frontmatter, readingTime } = Astro.props;
+const { frontmatter, readingTime, jsonLd } = Astro.props;
 
 const fmt = (d: string) =>
   new Date(d).toLocaleDateString('en-US', {
@@ -40,6 +41,7 @@ const articleMeta = {
   description={frontmatter.description}
   ogImage={frontmatter.ogImage}
   article={articleMeta}
+  jsonLd={jsonLd}
 >
   <main class="container">
     <article class="blog-post">
