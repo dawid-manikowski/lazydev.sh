@@ -195,11 +195,7 @@ But Claude didn't know our system. It didn't know that some callbacks used unpic
 
 And the code review was essential. Our platform team caught real issues — JSON-vs-pickle edge cases, race conditions, a few others. AI got me to a reviewable PR fast. The human reviewer made it production-ready.
 
-A year ago, this project wouldn't have happened the way it did. I'd have filed a ticket, the platform team would have prioritized it against their roadmap, and we'd have patched with downtime in the meantime. That's not a failure of process — that's how specialization works. You don't normally send SRE to write Celery backend code.
-
-But AI is changing where those boundaries sit. Not erasing them. The platform engineer's review caught things I wouldn't have found on my own, and that review mattered *more*, not less, because the code was AI-assisted. The boundary moved from "who can write this code" to "who can review this code," and that's a meaningful shift. Problems that used to wait in a queue can now get solved by whoever is closest to the pain, as long as the right expert is in the review loop.
-
-For reliability specifically, that matters a lot. The gap between "we know this is a risk" and "we have tooling to handle it" is where incidents live. Anything that shrinks that gap — better abstractions, better tooling, or an AI that can teach you enough Celery internals to write a recovery command — makes the system safer.
+A year ago, this project wouldn't have happened the way it did. I'd have filed a ticket, the platform team would have prioritized it against their roadmap, and we'd have patched with downtime in the meantime. That's not a failure of process — that's how specialization works. You don't normally send SRE to write Celery backend code. AI shifted that: the boundary moved from "who can write this code" to "who can review it." The platform engineer's review caught things I wouldn't have found on my own, and it mattered *more*, not less, because the code was AI-assisted. For reliability work specifically, that shift matters — the gap between "we know this is a risk" and "we have tooling to handle it" is where incidents live, and anything that shrinks it makes the system safer.
 
 We'll still need to get off Celery chords long-term. The duct tape is good duct tape, but it's still duct tape. In the short term, though, we went from "patching requires downtime" to "patching requires running one command afterward." That's a win.
 
