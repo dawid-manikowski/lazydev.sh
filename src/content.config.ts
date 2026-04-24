@@ -10,6 +10,8 @@ const blog = defineCollection({
     updatedDate: z.coerce.date().optional(),
     tags: z.array(z.string()).optional(),
     draft: z.boolean().optional().default(false),
+    author: z.string().optional().default('Dawid Manikowski'),
+    ogImage: z.string().optional(),
   }),
 });
 
