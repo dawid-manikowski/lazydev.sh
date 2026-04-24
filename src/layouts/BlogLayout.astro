@@ -6,16 +6,22 @@ interface Props {
     title: string;
     description: string;
     pubDate: string;
+    updatedDate?: string;
     tags?: string[];
   };
 }
 
 const { frontmatter } = Astro.props;
-const formattedDate = new Date(frontmatter.pubDate).toLocaleDateString('en-US', {
-  year: 'numeric',
-  month: 'long',
-  day: 'numeric',
-});
+
+const fmt = (d: string) =>
+  new Date(d).toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  });
+
+const publishedDate = fmt(frontmatter.pubDate);
+const updatedDate = frontmatter.updatedDate ? fmt(frontmatter.updatedDate) : null;
 ---
 
 <BaseLayout title={frontmatter.title} description={frontmatter.description}>
@@ -24,7 +30,12 @@ const formattedDate = new Date(frontmatter.pubDate).toLocaleDateString('en-US', 
       <header class="blog-post__header">
         <h1>{frontmatter.title}</h1>
         <div class="blog-post__meta">
-          <time datetime={frontmatter.pubDate}>{formattedDate}</time>
+          <time datetime={frontmatter.pubDate}>{publishedDate}</time>
+          {updatedDate && (
+            <span class="blog-post__updated">
+              · Updated <time datetime={frontmatter.updatedDate}>{updatedDate}</time>
+            </span>
+          )}
           {frontmatter.tags && (
             <div class="blog-post__tags">
               {frontmatter.tags.map((tag: string) => (
@@ -118,5 +129,9 @@ const formattedDate = new Date(frontmatter.pubDate).toLocaleDateString('en-US', 
     padding-left: var(--space-md);
     color: var(--text-muted);
     margin-bottom: var(--space-md);
+  }
+
+  .blog-post__updated {
+    color: var(--text-muted);
   }
 </style>
