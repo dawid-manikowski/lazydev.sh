@@ -8,6 +8,7 @@ import rehypeAutolinkHeadings from 'rehype-autolink-headings';
 import { readdir, readFile } from 'node:fs/promises';
 import { join, basename } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { ogImageIntegration } from './src/integrations/og-image.ts';
 
 const __dirname = fileURLToPath(new URL('.', import.meta.url));
 
@@ -76,6 +77,7 @@ export default defineConfig({
         return item;
       },
     }),
+    ogImageIntegration(),
   ],
   markdown: {
     shikiConfig: {
