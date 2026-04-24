@@ -14,12 +14,16 @@ Personal portfolio + blog for Dawid Manikowski.
 - `src/pages/` — index, projects, experience, blog/index, blog/[...slug], rss.xml
 - `src/content.config.ts` — blog collection schema
 - `src/styles/global.css` — design tokens and base styles
+- `src/utils/` — reading-time, json-ld helpers
+- `src/lib/` — og-template (satori element builder)
+- `src/integrations/` — og-image (build-time PNG card generator)
+- `src/assets/fonts/` — vendored JetBrains Mono for satori rendering
 
 ## Conventions
 - No border-radius, no gradients — sharp industrial aesthetic
 - Fonts: JetBrains Mono (headings), Inter (body) via Google Fonts
 - Colors: bg `#0a0a0a`, accent `#f59e0b`, text `#e5e5e5`
-- Blog posts use frontmatter: title, description, pubDate, tags, draft
+- Blog posts use frontmatter: title, description, pubDate, tags, draft (optional: updatedDate, author, ogImage)
 
 ## Blog content strategy
 
