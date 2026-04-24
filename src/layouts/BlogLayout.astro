@@ -1,5 +1,6 @@
 ---
 import BaseLayout from './BaseLayout.astro';
+import type { ReadingTime } from '../utils/reading-time';
 
 interface Props {
   frontmatter: {
@@ -9,9 +10,10 @@ interface Props {
     updatedDate?: string;
     tags?: string[];
   };
+  readingTime?: ReadingTime;
 }
 
-const { frontmatter } = Astro.props;
+const { frontmatter, readingTime } = Astro.props;
 
 const fmt = (d: string) =>
   new Date(d).toLocaleDateString('en-US', {
@@ -35,6 +37,9 @@ const updatedDate = frontmatter.updatedDate ? fmt(frontmatter.updatedDate) : nul
             <span class="blog-post__updated">
               · Updated <time datetime={frontmatter.updatedDate}>{updatedDate}</time>
             </span>
+          )}
+          {readingTime && (
+            <span class="blog-post__reading-time">· {readingTime.minutes} min read</span>
           )}
           {frontmatter.tags && (
             <div class="blog-post__tags">
@@ -132,6 +137,10 @@ const updatedDate = frontmatter.updatedDate ? fmt(frontmatter.updatedDate) : nul
   }
 
   .blog-post__updated {
+    color: var(--text-muted);
+  }
+
+  .blog-post__reading-time {
     color: var(--text-muted);
   }
 </style>
