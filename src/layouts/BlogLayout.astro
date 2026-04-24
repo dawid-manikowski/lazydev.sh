@@ -9,6 +9,8 @@ interface Props {
     pubDate: string;
     updatedDate?: string;
     tags?: string[];
+    author?: string;
+    ogImage?: string;
   };
   readingTime?: ReadingTime;
 }
@@ -24,9 +26,21 @@ const fmt = (d: string) =>
 
 const publishedDate = fmt(frontmatter.pubDate);
 const updatedDate = frontmatter.updatedDate ? fmt(frontmatter.updatedDate) : null;
+
+const articleMeta = {
+  publishedTime: frontmatter.pubDate,
+  modifiedTime: frontmatter.updatedDate,
+  author: frontmatter.author ?? 'Dawid Manikowski',
+  tags: frontmatter.tags,
+};
 ---
 
-<BaseLayout title={frontmatter.title} description={frontmatter.description}>
+<BaseLayout
+  title={frontmatter.title}
+  description={frontmatter.description}
+  ogImage={frontmatter.ogImage}
+  article={articleMeta}
+>
   <main class="container">
     <article class="blog-post">
       <header class="blog-post__header">
