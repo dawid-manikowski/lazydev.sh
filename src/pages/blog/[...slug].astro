@@ -1,6 +1,8 @@
 ---
 import { getCollection, render } from 'astro:content';
 import BlogLayout from '../../layouts/BlogLayout.astro';
+import { readingTimeOf } from '../../utils/reading-time';
+import { blogPostingJsonLd, breadcrumbJsonLd } from '../../utils/json-ld';
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog', ({ data }) => !data.draft);
@@ -12,8 +14,33 @@ export async function getStaticPaths() {
 
 const { post } = Astro.props;
 const { Content } = await render(post);
+const readingTime = readingTimeOf(post.body ?? '');
+
+const breadcrumb = breadcrumbJsonLd(post.data.title, post.id);
+const ogImage = post.data.ogImage ?? `/og/${post.id}.png`;
+
+const blogPosting = blogPostingJsonLd({
+  title: post.data.title,
+  description: post.data.description,
+  slug: post.id,
+  publishedTime: post.data.pubDate.toISOString(),
+  modifiedTime: post.data.updatedDate?.toISOString(),
+  author: post.data.author ?? 'Dawid Manikowski',
+  tags: post.data.tags,
+  ogImage,
+  readingTimeIso8601: readingTime.iso8601,
+});
 ---
 
-<BlogLayout frontmatter={{ ...post.data, pubDate: post.data.pubDate.toISOString() }}>
+<BlogLayout
+  frontmatter={{
+    ...post.data,
+    pubDate: post.data.pubDate.toISOString(),
+    updatedDate: post.data.updatedDate?.toISOString(),
+    ogImage,
+  }}
+  readingTime={readingTime}
+  jsonLd={[blogPosting, breadcrumb]}
+>
   <Content />
 </BlogLayout>

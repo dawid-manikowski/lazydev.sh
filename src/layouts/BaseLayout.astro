@@ -8,9 +8,16 @@ interface Props {
   title: string;
   description?: string;
   ogImage?: string;
+  article?: {
+    publishedTime: string;
+    modifiedTime?: string;
+    author: string;
+    tags?: string[];
+  };
+  jsonLd?: Record<string, unknown> | Record<string, unknown>[];
 }
 
-const { title, description, ogImage } = Astro.props;
+const { title, description, ogImage, article, jsonLd } = Astro.props;
 ---
 
 <!doctype html>
@@ -25,7 +32,7 @@ const { title, description, ogImage } = Astro.props;
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap"
       rel="stylesheet"
     />
-    <SEO title={title} description={description} ogImage={ogImage} />
+    <SEO title={title} description={description} ogImage={ogImage} article={article} jsonLd={jsonLd} />
   </head>
   <body>
     <Header />

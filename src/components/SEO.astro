@@ -3,16 +3,27 @@ interface Props {
   title: string;
   description?: string;
   ogImage?: string;
+  article?: {
+    publishedTime: string;
+    modifiedTime?: string;
+    author: string;
+    tags?: string[];
+  };
+  jsonLd?: Record<string, unknown> | Record<string, unknown>[];
 }
 
 const {
   title,
   description = 'Senior SRE building reliable systems at scale. Portfolio and technical blog.',
   ogImage,
+  article,
+  jsonLd,
 } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 const fullTitle = title === 'Home' ? 'Dawid Manikowski — lazydev.sh' : `${title} — lazydev.sh`;
+const ogType = article ? 'article' : 'website';
+const jsonLdArray = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
 ---
 
 <title>{fullTitle}</title>
@@ -20,11 +31,25 @@ const fullTitle = title === 'Home' ? 'Dawid Manikowski — lazydev.sh' : `${titl
 <link rel="canonical" href={canonicalURL} />
 
 <!-- Open Graph -->
-<meta property="og:type" content="website" />
+<meta property="og:type" content={ogType} />
 <meta property="og:url" content={canonicalURL} />
 <meta property="og:title" content={fullTitle} />
 <meta property="og:description" content={description} />
 {ogImage && <meta property="og:image" content={new URL(ogImage, Astro.site)} />}
+
+<!-- Article meta (post pages only) -->
+{article && (
+  <>
+    <meta property="article:published_time" content={article.publishedTime} />
+    {article.modifiedTime && (
+      <meta property="article:modified_time" content={article.modifiedTime} />
+    )}
+    <meta property="article:author" content={article.author} />
+    {article.tags?.map((tag) => (
+      <meta property="article:tag" content={tag} />
+    ))}
+  </>
+)}
 
 <!-- Twitter -->
 <meta name="twitter:card" content="summary_large_image" />
@@ -39,3 +64,8 @@ const fullTitle = title === 'Home' ? 'Dawid Manikowski — lazydev.sh' : `${titl
   title="lazydev.sh"
   href={new URL('/rss.xml', Astro.site)}
 />
+
+<!-- JSON-LD structured data -->
+{jsonLdArray.map((ld) => (
+  <script type="application/ld+json" set:html={JSON.stringify(ld)} />
+))}
