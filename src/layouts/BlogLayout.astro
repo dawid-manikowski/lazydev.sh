@@ -68,6 +68,9 @@ const articleMeta = {
       </header>
       <div class="blog-post__content">
         <slot />
+        <div class="blog-post__rss">
+          Liked the post? Follow via <a href="/rss.xml">RSS</a> for more!
+        </div>
       </div>
     </article>
   </main>
@@ -172,5 +175,21 @@ const articleMeta = {
   .blog-post__content :global(h3:hover .heading-anchor),
   .blog-post__content :global(.heading-anchor:focus) {
     opacity: 1;
+  }
+
+  .blog-post__rss {
+    margin-top: var(--space-xl);
+    padding: var(--space-md);
+    border: 1px solid var(--border);
+    font-size: 0.9375rem;
+  }
+
+  .blog-post__rss a {
+    color: var(--text);
+    text-decoration: underline;
+  }
+
+  .blog-post__rss a:hover {
+    color: var(--accent);
   }
 </style>
